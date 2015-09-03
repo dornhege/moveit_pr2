@@ -112,6 +112,7 @@ public:
 
   virtual bool waitForExecution(const ros::Duration &timeout = ros::Duration(0))
   {
+    ROS_INFO("waitForExecution (%f s) last_exec_ %d", timeout.toSec(), last_exec_);
     if (controller_action_client_ && !done_)
       return controller_action_client_->waitForResult(timeout);
     return true;
@@ -137,6 +138,8 @@ protected:
           last_exec_ = moveit_controller_manager::ExecutionStatus::PREEMPTED;
         else
           last_exec_ = moveit_controller_manager::ExecutionStatus::FAILED;
+
+    ROS_INFO("FINISH Setting last_exec_ %d", last_exec_);
     done_ = true;
   }
 
@@ -224,6 +227,7 @@ public:
                                         boost::bind(&Pr2GripperControllerHandle::controllerFeedbackCallback, this, _1));
     done_ = false;
     last_exec_ = moveit_controller_manager::ExecutionStatus::RUNNING;
+    ROS_INFO("Setting last_exec_ %d", last_exec_);
     return true;
   }
 

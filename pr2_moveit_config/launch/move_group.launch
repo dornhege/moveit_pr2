@@ -38,6 +38,7 @@
     <param name="allow_trajectory_execution" value="$(arg allow_trajectory_execution)"/>
     <param name="max_safe_path_cost" value="$(arg max_safe_path_cost)"/>
     <param name="jiggle_fraction" value="0.05" />
+    <param name="trajectory_execution/allowed_execution_duration_scaling" value="10.0" />
 
     <param name="capabilities" value="move_group/MoveGroupCartesianPathService
 				      move_group/MoveGroupExecuteService
