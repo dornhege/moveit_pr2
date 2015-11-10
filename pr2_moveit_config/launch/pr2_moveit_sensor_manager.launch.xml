@@ -6,6 +6,9 @@
   <!-- Set the file describing which sensor(s) to use to build the octomap  -->
   <arg name="moveit_octomap_sensor_params_file" default="$(find pr2_moveit_config)/config/sensors_kinect.yaml" />
 
+  <arg name="use_map_frame" />
+  <arg name="octomap_file" />
+
   <!--
       Disable for now, as this package is not yet catkinized (dry deps)
   <param name="moveit_sensor_manager" value="$(arg moveit_sensor_manager)"/>
@@ -17,8 +20,11 @@
   <param name="head_pointing_frame" value="$(arg head_pointing_frame)" />
 
   <!-- Params for the octomap monitor -->
-  
-  <param name="octomap_frame" type="string" value="odom_combined" />
+  <param if="$(arg use_map_frame)" name="octomap_frame" type="string" value="map" />
+  <param unless="$(arg use_map_frame)" name="octomap_frame" type="string" value="odom_combined" />
+
+  <param name="octomap_file" value="$(arg octomap_file)" />
+
   <param name="octomap_resolution" type="double" value="0.025" />
   <param name="max_range" type="double" value="5.0" />
   
